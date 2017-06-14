@@ -2,18 +2,26 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/style.css">
         <title>index</title>
     </head>
-    <body>
-        <p>main page</p>
+    <body class="chat">
+        <div class="chat__sidebar">
+            <h3>Connected</h3>
+            <div id="users"></div>
+        </div>
 
-        <ol id="messages"></ol>
+        <div class="chat__main">
+            <ol id="messages" class="chat__messages"></ol>
 
-        <form id="message-form">
-            <input type="text" name="message" placeholder="Message"/>
-            <button>Send</button>
-        </form>
-        <button id="send-location">Send location</button>
+            <div class="chat__footer">
+                <form id="message-form">
+                    <input type="text" name="message" placeholder="Message" autofocus autocomplete="off"/>
+                    <button>Send</button>
+                </form>
+                <button id="send-location">Send location</button>
+            </div>
+        </div>
 
         <!--JavaScript-->
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>

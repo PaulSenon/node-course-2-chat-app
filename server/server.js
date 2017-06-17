@@ -26,10 +26,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join', (params, callback) => {
-        params.room = params.room.toLowerCase();
-        if(!isRealString(params.name) || !isRealString(params.room) || users.isNameAlreadyTaken(params.name, params.room)){
+        if(!isRealString(params.name) || !isRealString(params.room) || users.isNameAlreadyTaken(params.name, params.room.toLowerCase())){
             return callback('Name and room name are required. If set, your username is probably already taken. Please choose an other one.');
         }
+        params.room = params.room.toLowerCase();
         socket.join(params.room);
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);

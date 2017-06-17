@@ -1,5 +1,9 @@
 var socket = io();
 
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
 function animateScroll(){
     var messages = $('#messages');
     messages.animate({scrollTop: messages.prop('scrollHeight')}, 50);
@@ -29,7 +33,9 @@ socket.on('connect', function() {
             alert(err);
             window.location.href = '/';
         }else{
-            console.log('No error');
+            var fancyRoomName = '#'+params.room.toLowerCase().capitalize();
+            console.log(fancyRoomName);
+            $('.chat__sidebar h3').text(fancyRoomName);
         }
     });
 });

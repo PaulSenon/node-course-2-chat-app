@@ -9,27 +9,85 @@ describe('Users', () => {
         users.users = [{
             id: '1',
             name: 'Paul',
-            room: 'Node Course'
+            room: 'node course'
         }, {
             id: '2',
             name: 'Jen',
-            room: 'React Course'
+            room: 'react course'
         }, {
             id: '3',
             name: 'Phil',
-            room: 'Node Course'
+            room: 'node course'
         }];
     });
 
     it('Should add new user', () => {
-        var users = new Users();
         var user = {
+            id: '123',
+            name: 'José',
+            room: 'office'
+        };
+        var resUser = users.addUser(user.id, user.name, user.room);
+
+        expect(resUser).toEqual(user);
+        expect(users.users).toInclude(user);
+    });
+
+    it('Should not add user if name already taken', () => {
+        var user = {
+            id: '923847',
+            name: 'Paul',
+            room: 'node course'
+        };
+        var resUser = users.addUser(user.id, user.name, user.room);
+
+        expect(users.users).toNotInclude(user);
+        expect(resUser).toBe(undefined);
+    });
+
+    it('Should add 2 user in the SaMe RoOm (no case sensitive)', () =>{
+        var users = new Users();
+        var user1 = {
             id: '123',
             name: 'Paul',
             room: 'Office'
         };
-        var resUser = users.addUser(user.id, user.name, user.room);
-        expect(users.users).toEqual([user]);
+        var user2 = {
+            id: '456',
+            name: 'Phil',
+            room: 'offICE'
+        };
+        users.addUser(user1.id, user1.name, user1.room);
+        users.addUser(user2.id, user2.name, user2.room);
+
+        expect(users.users.length).toBe(2);
+        expect(users.getUserList('office').length).toBe(2);
+    });
+
+    // it('Should find user by name', () => {
+    //     var name = 'Paul';
+    //     var user = users.getUserByName(name);
+    //
+    //     expect(user.name).toBe(name);
+    // });
+    //
+    // it('Should not find user by name', () => {
+    //     var name = 'KJQHSFKJSGKDJFHgs';
+    //     var user = users.getUserByName(name);
+    //
+    //     expect(user).toNotExist();
+    // });
+
+    it('Should return true if user already exist', () => {
+        var name = 'Paul';
+        var room = 'Node course';
+        expect(users.isNameAlreadyTaken(name, room)).toBe(true);
+    });
+
+    it('Should return false if user dont exist', () => {
+        var name = 'Paul';
+        var room = 'React course'
+        expect(users.isNameAlreadyTaken(name, room)).toBe(false);
     });
 
     it('Should remove a user', () => {
@@ -50,14 +108,14 @@ describe('Users', () => {
 
     it('Should find user', () => {
         var userId = '2';
-        var user = users.getUser(userId);
+        var user = users.getUserById(userId);
 
         expect(user.id).toBe(userId);
     });
 
     it('Should not find user', () => {
         var userId = '999';
-        var user = users.getUser(userId);
+        var user = users.getUserById(userId);
 
         expect(user).toNotExist();
     });

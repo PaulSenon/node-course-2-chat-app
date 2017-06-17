@@ -18,12 +18,20 @@
                 </div>
                 <div class="form-field">
                     <label>Room name</label>
-                    <input type="text" name="room">
+                    <input type="text" name="room" list="rooms" autocomplete="off">
+                    <datalist id="rooms">
+                        
+                    </datalist>
                 </div>
                 <div class="form-field">
                     <button>Join</button>
                 </div>
             </form>
         </div>
+
+        <!--JavaScript-->
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/index.js"></script>
     </body>
 </html>

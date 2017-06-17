@@ -48,6 +48,23 @@ class Users {
         return resUser !== undefined;
         // return this.getUserByName(name) !== undefined;
     }
+    getRoomList(){
+        var rooms = this.users.map((user) => user.room);
+        rooms = [...new Set(rooms)];
+        var resArray = [];
+        rooms.forEach((room) => {
+            var tmp = {
+                room,
+                nbUsers: this.getNbUsers(room)
+            };
+            resArray.push(tmp);
+        });
+        return resArray;
+    }
+    getNbUsers(room){
+        room = room.toLowerCase();
+        return this.users.filter((user) => user.room === room).length;
+    }
 }
 
 module.exports = {

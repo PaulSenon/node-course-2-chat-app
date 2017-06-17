@@ -34,7 +34,6 @@ socket.on('connect', function() {
             window.location.href = '/';
         }else{
             var fancyRoomName = '#'+params.room.toLowerCase().capitalize();
-            console.log(fancyRoomName);
             $('.chat__sidebar h3').text(fancyRoomName);
         }
     });
@@ -45,7 +44,6 @@ socket.on('disconnect', function() {
 });
 
 socket.on('updateUserList', function(users) {
-    console.log(users);
     var ol = $('<ol>');
     users.forEach(function(user) {
         ol.append($('<li>').text(user));

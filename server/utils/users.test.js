@@ -129,4 +129,25 @@ describe('Users', () => {
         var userList = users.getUserList('React Course');
         expect(userList).toEqual(['Jen']);
     });
+
+    it('Should return names of rooms', () => {
+        var rooms = users.getRoomList();
+        expect(rooms.length).toBe(2);
+    });
+
+    it('Should return an empty array (no room created)', () => {
+        users = new Users();
+        var rooms = users.getRoomList();
+        expect(rooms.length).toBe(0);
+    });
+
+    it('Should return 2 (nb users in a room)', () => {
+        var res = users.getNbUsers('node course');
+        expect(res).toBe(2);
+    });
+
+    it('Should return 0 (nb room doesnt exist)', () => {
+        var res = users.getNbUsers('sdkifhksjdhfkjshdkfjh');
+        expect(res).toBe(0);
+    });
 });
